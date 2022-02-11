@@ -26,6 +26,16 @@ results = soup.find('table', {'class': 'table-scrollable'}).find('tbody').find_a
 
 # print(len(results))
 
-print(results[0].find('a', {'class': 'tw-hidden lg:tw-flex font-bold tw-items-center tw-justify-between'}).get_text())
+print(results[0].find('a', {'class': 'tw-hidden lg:tw-flex font-bold tw-items-center tw-justify-between'}).get_text().strip())
 
-print(results[0].find('span', {'class': 'no-wrap'}).get_text())
+print(results[0].find('td', {'class': 'td-price price text-right pl-0'}).get_text().strip())
+
+print(results[0].find('td', {'class': 'td-change1h'}).get_text().strip())
+
+print(results[0].find('td', {'class': 'td-change24h'}).get_text().strip())
+
+print(results[0].find('td', {'class': 'td-change7d'}).get_text().strip())
+
+print(results[0].find('td', {'class': 'td-liquidity_score'}).get_text().strip())
+
+print(results[0].find('td', {'class': 'td-market_cap'}).get_text().strip())
