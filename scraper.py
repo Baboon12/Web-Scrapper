@@ -51,12 +51,38 @@ crypto_market_cap = [];
 
 # Appending data to respective lists
 for i in results:
-    crypto_name.append(i.find('a', {'class': 'tw-hidden lg:tw-flex font-bold tw-items-center tw-justify-between'}).get_text().strip())
-    crypto_price.append(i.find('td', {'class': 'td-price price text-right pl-0'}).get_text().strip())
-    crypto_1h_change.append(i.find('td', {'class': 'td-change1h'}).get_text().strip())
-    crypto_24h_change.append(i.find('td', {'class': 'td-change24h'}).get_text().strip())
-    crypto_7d_change.append(i.find('td', {'class': 'td-change7d'}).get_text().strip())
-    crypto_market_cap.append(i.find('td', {'class': 'td-market_cap'}).get_text().strip())
-
-# print(crypto_name);
-print(len(crypto_price))
+    # name
+    try:
+        crypto_name.append(i.find('a', {'class': 'tw-hidden lg:tw-flex font-bold tw-items-center tw-justify-between'}).get_text().strip())
+    except:
+        print('N/A');
+    
+    # price
+    try:
+        crypto_price.append(i.find('td', {'class': 'td-price price text-right pl-0'}).get_text().strip())
+    except:
+        print('N/A');
+    
+    # 1h change
+    try:
+        crypto_1h_change.append(i.find('td', {'class': 'td-change1h'}).get_text().strip())
+    except:
+        print('N/A');
+    
+    # 24h change
+    try:
+        crypto_24h_change.append(i.find('td', {'class': 'td-change24h'}).get_text().strip())
+    except:
+        print('N/A');
+    
+    # 7d change
+    try:
+        crypto_7d_change.append(i.find('td', {'class': 'td-change7d'}).get_text().strip())
+    except:
+        print('N/A');
+    
+    # market capital
+    try:
+        crypto_market_cap.append(i.find('td', {'class': 'td-market_cap'}).get_text().strip())
+    except:
+        print('N/A');
