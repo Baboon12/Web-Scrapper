@@ -86,3 +86,6 @@ for i in results:
         crypto_market_cap.append(i.find('td', {'class': 'td-market_cap'}).get_text().strip())
     except:
         print('N/A');
+        
+
+# Setting pandas dataframe
