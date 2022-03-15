@@ -1,4 +1,6 @@
 
+from datetime import datetime
+from operator import index
 from traceback import print_tb
 from urllib import response
 
@@ -47,6 +49,7 @@ crypto_price = [];
 crypto_1h_change = [];
 crypto_24h_change = [];
 crypto_7d_change = [];
+crypto_volume_24h = [];
 crypto_market_cap = [];
 
 # Appending data to respective lists
@@ -80,12 +83,34 @@ for i in results:
         crypto_7d_change.append(i.find('td', {'class': 'td-change7d'}).get_text().strip())
     except:
         print('N/A');
+
+     # 24h volume
+    try:
+        crypto_volume_24h.append(i.find('td', {'class': 'td-liquidity_score'}).get_text().strip())
+    except:
+        print('N/A');
     
     # market capital
     try:
         crypto_market_cap.append(i.find('td', {'class': 'td-market_cap'}).get_text().strip())
     except:
         print('N/A');
-        
 
 # Setting pandas dataframe
+# Dataframe takes as input a dictionary whose
+#  1st parameter is Name of Column and 
+#  2nd parameter is the dictionary that it takes data from
+crypto_data_frame = pd.DataFrame({'Coin': crypto_name, 'Price': crypto_price, '1h_Change': crypto_1h_change, '24h_Change': crypto_24h_change, '7d_Change': crypto_7d_change, '24h_Volume': crypto_volume_24h, 'Market_Capital': crypto_market_cap})
+
+# output of dataframe
+# print(crypto_data_frame)
+
+dt = datetime.now()
+ds = str(dt);
+dss = ds[0:10]
+print(dss)
+i=0;
+
+# output in excel file
+crypto_data_frame.to_csv(dss+'_'+str(i)+'.csv', index=False)
+i=i+1

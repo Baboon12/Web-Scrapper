@@ -181,7 +181,7 @@ a.pure-button-primary {
     /* These styles are required for the "scroll-over" effect */
     position: absolute;
     top: 87%;
-    width: 100%;
+    /* width: 100%; */
     min-height: 12%;
     z-index: 2;
     background: white;
@@ -196,7 +196,6 @@ a.pure-button-primary {
 /* This is the class used for the main content headers (<h2>) */
 .content-head {
     font-weight: 400;
-    text-transform: uppercase;
     letter-spacing: 0.1em;
     margin: 2em 0 1em;
 }
@@ -250,9 +249,9 @@ a.pure-button-primary {
         }
 
     /* We increase the height of the splash-container */
-/*    .splash-container {
+   .splash-container {
         height: 500px;
-    }*/
+    }
 
     /* We decrease the width of the .splash, since we have more width
     to work with */
@@ -283,4 +282,8 @@ a.pure-button-primary {
     .splash-head {
         font-size: 300%;
     }
+}
+
+ a {
+     color: #1f8dd6;
 }
