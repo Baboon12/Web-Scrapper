@@ -17,20 +17,21 @@ from django.contrib.auth.models import User,auth
 def login(request):
     if request.method=='POST':
         # pass
-        password=request.POST['pass']
-        username=request.POST['username']
+        # password=request.POST['password']
+        # username=request.POST['username']
         
-        user = auth.authenticate(username=username,password=password)
+        # user = auth.authenticate(username=username,password=password)
         
-        if user is not None:
-            auth.login(request,user)
-            return HttpResponseRedirect('/index')
-        else:
-            # messages.info(request,'invalid cred')
-            return HttpResponseRedirect('/login')
+        # if user is not None:
+        #     auth.login(request,user)
+        #     return HttpResponseRedirect('/index')
+        # else:
+        #     # messages.info(request,'invalid cred')
+        #     return HttpResponseRedirect('login')
+        print('HUA')
         
     else:
-        return render(request,'signup.html')
+        return HttpResponseRedirect('login')
 
 def signup(request):
     # return render(request,'signup.html')
@@ -47,7 +48,7 @@ def signup(request):
         user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
         user.save()
         print('user created')
-        return HttpResponseRedirect('scrapyfinal/login')
+        return HttpResponseRedirect('/login')
     else:
         return render(request,'signup.html')
     
