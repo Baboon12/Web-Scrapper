@@ -1,7 +1,7 @@
 import imp
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User,auth
+from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate
 import mimetypes
 import os
@@ -28,26 +28,26 @@ def forgot(request):
     return render(request, 'forgot.html')
 
 
-    
 def login(request):
-    #return render(request,'login.html')
+    # return render(request,'login.html')
     # print('HUA')
-    if request.method=='POST':
-        username=request.POST['username'] 
-        password=request.POST['pass']
-        
-        x = auth.authenticate(username=username,password=password)
-        
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['pass']
+
+        x = auth.authenticate(username=username, password=password)
+
         if x is not None:
-            
-            return redirect('/index')
+            auth.login(request, x)
+            return redirect('/')
         else:
             # messages.info(request,'invalid cred')
             return redirect('login')
-        
-        
+
     else:
-        return redirect('login')
+         return render(request, 'login.html')
+       # print("Hag")
+
 
 def otp(request):
     return render(request, 'otp.html')
@@ -63,9 +63,9 @@ def scraper(request):
 #         first_name=request.POST['fname']
 #         last_name=request.POST['lname']
 #         email=request.POST['email']
-        
+
 #         password=request.POST['pass']
-        
+
 
 #         user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
 #         # user.save()
@@ -77,23 +77,25 @@ def scraper(request):
 def signup(request):
     print('hua')
     # return render(request,'signup.html')
-    if request.method=='POST':
-        first_name=request.POST['fname']
-        last_name=request.POST['lname']
-        email=request.POST['email']
+    if request.method == 'POST':
+        first_name = request.POST['fname']
+        last_name = request.POST['lname']
+        email = request.POST['email']
         # phone=request.POST['phone']
-        password=request.POST['pass']
-        username=request.POST['username']
+        password = request.POST['pass']
+        username = request.POST['username']
         # phone=request.POST['phone']
 
         # user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
-        user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
+        user = User.objects.create_user(
+            username=username, first_name=first_name, last_name=last_name, email=email, password=password)
         user.save()
         print('user created')
         return HttpResponseRedirect('/login')
     else:
-        return render(request,'signup.html')
-    
+        return render(request, 'signup.html')
+
+
 def output(request):
 
     output_data = scrapeSite()
@@ -117,7 +119,7 @@ def download_file(request):
 
     # scraper script:
     website = 'https://www.coingecko.com/'
-    global j 
+    global j
 
     # Requesting the website
     response = requests.get(website)
@@ -228,8 +230,8 @@ def download_file(request):
     print(dss)
 
     Excel_filename = dss+'_'+str(j)+'.csv'
-    
-    j =  j+1
+
+    j = j+1
 
     # output in excel file
     crypto_data_frame.to_csv(Excel_filename, index=False)
