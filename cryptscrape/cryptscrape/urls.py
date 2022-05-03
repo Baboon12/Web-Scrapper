@@ -39,6 +39,7 @@ urlpatterns = [
     path('otp',views.otp,name='otp'),
     path('signup',views.signup,name='signup'),
     path('login',views.login,name='login'),
+    path('logout',views.logout,name='logout'),
     path('scraper',views.scraper,name='scraper'),
     # path('$',views.scraper),
     path('output',views.output,name="script"),

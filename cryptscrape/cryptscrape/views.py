@@ -13,6 +13,7 @@ from urllib import response
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from django.contrib import messages
 
 # from .models import MyModel
 # from .forms import MyForm
@@ -27,27 +28,30 @@ def index(request):
 def forgot(request):
     return render(request, 'forgot.html')
 
-
+def logout(request):
+    auth.logout(request);
+    return redirect('/')
     
 def login(request):
     #return render(request,'login.html')
-    # print('HUA')
+    print('HUA')
     if request.method=='POST':
+    
         username=request.POST['username'] 
         password=request.POST['pass']
         
         x = auth.authenticate(username=username,password=password)
         
         if x is not None:
-            
-            return redirect('/index')
+            auth.login(request,x)
+            return redirect('/')
         else:
-            # messages.info(request,'invalid cred')
+            messages.info(request,'invalid cred')
             return redirect('login')
         
         
     else:
-        return redirect('login')
+        return render(request,'login.html')
 
 def otp(request):
     return render(request, 'otp.html')

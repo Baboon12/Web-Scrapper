@@ -28,7 +28,16 @@
 
             <ul class="pure-menu-list">
                 <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link"></a></li>
+
+                {% if user.is_authenticated %}
+                <li>hello {{user.first_name}}</li>
+                
+                <li class="pure-menu-item"><a href="logout" class="pure-menu-link">logout</a></li>
+                
+                {% else %}
                 <li class="pure-menu-item"><a href="login" class="pure-menu-link">Login</a></li>
+                {% endif %}
+                
             </ul>
         </div>
     </div>
