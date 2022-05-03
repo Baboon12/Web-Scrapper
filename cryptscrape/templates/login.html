@@ -1,6 +1,6 @@
-<html>
-  {% load static %}
 
+<html>{% load static %}
+  
 
 <head>
   <style>
@@ -30,7 +30,7 @@
       font-weight: 600;
       text-transform: uppercase;
       display: inline-block;
-      margin: 40px 8px 10px 8px;
+      margin: 25px 8px 10px 8px;
       color: #cccccc;
     }
 
@@ -71,6 +71,8 @@
       border-radius: 0 0 10px 10px;
     }
 
+
+
     /* TABS */
 
     h2.inactive {
@@ -82,15 +84,17 @@
       border-bottom: 2px solid #5fbae9;
     }
 
+
+
     /* FORM TYPOGRAPHY*/
 
     input[type=button],
     input[type=submit],
-    input[type=reset] {
+    input[type=reset]{
       background-color: #56baed;
       border: none;
       color: white;
-      padding: 12px 50px;
+      padding: 15px 80px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
@@ -124,7 +128,11 @@
       transform: scale(0.95);
     }
 
-    input{
+    
+    input[type=text],
+    input[type=password],
+    input[type=tel],
+    input[type=email]{
       width: 60%;
       box-sizing: border-box;
       border: 2px solid #ccc;
@@ -133,9 +141,8 @@
       background-color: white;
       background-position: 10px 10px;
       background-repeat: no-repeat;
-      padding: 12px 20px 12px 20px;
+      padding: 10px 20px 10px 20px;
     }
-
 
 
     /* ANIMATIONS */
@@ -285,57 +292,33 @@
     }
   </style>
 
-  <script>
-    function checkform() {
-      var email = document.getElementById("email").value;
-      var pass = document.getElementById("password").value;
-      //alert('hh');
 
-      if (email.length < 5) {
-        alert("userid too short");
-        return false;
-      }
-      else if (email.length > 15) {
-        alert('userid length exceeded. keep it below 15 characters');
-        return false;
-      }
-
-      else if (pass.length < 9) {
-        alert("password too short");
-        return false;
-      }
-      else if (pass.length > 15) {
-        alert('password length exceeded. keep it below 15 characters');
-        return false;
-      }
-      else {
-        return true;
-      }
-    }
-  </script>
 </head>
 
 <body>
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
-      <h2 class="active"> Sign In </h2>
+      <h2 class="active"> Sign up </h2>
 
       <!-- Icon -->
 
       <!-- Login Form -->
-      <form action="scrapyfinal/login" method="POST" onsubmit="checkform()">
+      <form action="login" method="POST">
         {% csrf_token %}
-        <br><input type="text" id="username" class="fadeIn second" name="username" placeholder="username"><br><br>
-        <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password"><br> <br>
-        <input type="submit" class="fadeIn fourth" value="Log In">
+        {% comment %} <br><input type="text"  class="fadeIn second" name="fname" placeholder="First Name"
+          autocomplete="off"><br><br>
+        <input type="text"  class="fadeIn second" name="lname" placeholder="Last Name"
+          autocomplete="off"><br><br> {% endcomment %}
+          <input type="text"  class="fadeIn second" name="username" placeholder="user Name">
+          {% comment %} autocomplete="off"><br><br>
+        <input type="text"  class="fadeIn second" name="email" placeholder="Email" autocomplete="off"> <br><br> {% endcomment %}
+        {% comment %} <input type="text" name="phone"  placeholder="Phone Number" autocomplete="off" class="fadeIn second"> <br> <br> {% endcomment %}
+        <input type="text" class="fadeIn second" name="pass" placeholder="Password"><br> <br>
+         
+        <input type="submit" class="fadeIn fourth">
       </form>
 
-      <!-- Remind Passowrd -->
-      <div id="formFooter" style="display: flex; justify-content: space-between;">
-        <a class="underlineHover" href="scrapyfinal/signup">Register</a>
-        <a class="underlineHover" href="forgot">Forgot Password?</a> 
-      </div>
 
     </div>
   </div>

@@ -5,6 +5,7 @@
 # from django.contrib.auth.models import User,auth
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.conf import settings
 from django.contrib.auth.models import User,auth
 # import mimetypes
 # import os
@@ -14,24 +15,15 @@ from django.contrib.auth.models import User,auth
 # from urllib import response
 
 # Create your views here.
-def login(request):
-    if request.method=='POST':
-        # pass
-        # password=request.POST['password']
-        # username=request.POST['username']
+
+
+def login2(request):
+    
+    username=request.POST['username']
+    password=request.POST['pass']
         
-        # user = auth.authenticate(username=username,password=password)
-        
-        # if user is not None:
-        #     auth.login(request,user)
-        #     return HttpResponseRedirect('/index')
-        # else:
-        #     # messages.info(request,'invalid cred')
-        #     return HttpResponseRedirect('login')
-        print('HUA')
-        
-    else:
-        return HttpResponseRedirect('login')
+    
+
 
 def signup(request):
     # return render(request,'signup.html')
@@ -52,3 +44,25 @@ def signup(request):
     else:
         return render(request,'signup.html')
     
+def login(request):
+    #return render(request,'login.html')
+    if request.method== 'POST':
+        # pass
+        username=request.POST['username'] 
+        password=request.POST['password']
+        
+        user = auth.authenticate(username=username,password=password)
+        
+        if user is not None:
+            auth.login(request,user)
+            return HttpResponseRedirect('/index')
+        else:
+            # messages.info(request,'invalid cred')
+            return HttpResponseRedirect('login')
+        print('HUA')
+        
+    else:
+        return HttpResponseRedirect('login')
+    
+    
+     

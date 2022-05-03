@@ -32,12 +32,13 @@ from .scraper import *
 urlpatterns = [
     
     path('admin/', admin.site.urls),
-    path('scrapyfinal/',include('scrapyfinal.urls')),
-    path('index',views.index,name='index'),
+    # path('scrapyfinal/',include('scrapyfinal.urls')),
+    # path('loginscrape/',include('loginscrape.urls')),
+    path('',views.index,name='index'),
     path('forgot',views.forgot,name='forgot'),
     path('otp',views.otp,name='otp'),
-    # path('signup',views.signup,name='signup'),
-    # path('login',views.login,name='login'),
+    path('signup',views.signup,name='signup'),
+    path('login',views.login,name='login'),
     path('scraper',views.scraper,name='scraper'),
     # path('$',views.scraper),
     path('output',views.output,name="script"),

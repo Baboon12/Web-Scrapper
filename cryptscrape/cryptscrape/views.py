@@ -1,6 +1,8 @@
+import imp
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User,auth
+from django.contrib.auth import authenticate
 import mimetypes
 import os
 from datetime import datetime
@@ -26,9 +28,26 @@ def forgot(request):
     return render(request, 'forgot.html')
 
 
-# def login(request):
-#     return render(request, 'login.html')
-
+    
+def login(request):
+    #return render(request,'login.html')
+    # print('HUA')
+    if request.method=='POST':
+        username=request.POST['username'] 
+        password=request.POST['pass']
+        
+        x = auth.authenticate(username=username,password=password)
+        
+        if x is not None:
+            
+            return redirect('/index')
+        else:
+            # messages.info(request,'invalid cred')
+            return redirect('login')
+        
+        
+    else:
+        return redirect('login')
 
 def otp(request):
     return render(request, 'otp.html')
@@ -44,18 +63,37 @@ def scraper(request):
 #         first_name=request.POST['fname']
 #         last_name=request.POST['lname']
 #         email=request.POST['email']
-#         phone=request.POST['phone']
+        
 #         password=request.POST['pass']
-#         phone=request.POST['phone']
+        
 
-#         user = User.objects.create_user(first_name=first_name,last_name=last_name,email=email,phone=phone,password=password)
+#         user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
 #         # user.save()
 #         print('user created')
 #         return redirect('/')
 #     else:
 #         return render(request,'signup.html')
 
+def signup(request):
+    print('hua')
+    # return render(request,'signup.html')
+    if request.method=='POST':
+        first_name=request.POST['fname']
+        last_name=request.POST['lname']
+        email=request.POST['email']
+        # phone=request.POST['phone']
+        password=request.POST['pass']
+        username=request.POST['username']
+        # phone=request.POST['phone']
 
+        # user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
+        user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
+        user.save()
+        print('user created')
+        return HttpResponseRedirect('/login')
+    else:
+        return render(request,'signup.html')
+    
 def output(request):
 
     output_data = scrapeSite()
