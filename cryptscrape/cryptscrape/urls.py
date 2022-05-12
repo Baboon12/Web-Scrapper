@@ -43,7 +43,10 @@ urlpatterns = [
     path('scraper',views.scraper,name='scraper'),
     # path('$',views.scraper),
     path('output',views.output,name="script"),
-    path('download', views.download_file)
+    path('download', views.download_file),
+    path('downloadgeck', views.download_file_geck),
+    path('downloadcap', views.download_file_cap),
+    path('feedback',views.feedback)
 ]
 
 # urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

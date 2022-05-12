@@ -13,6 +13,20 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css">
     <script src="https://kit.fontawesome.com/1ad43aed0a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        {% comment %} swal("data successfull scrapeed"); {% endcomment %}
+        sweetpop(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+              })
+        }
+    </script>
     <style>
         html {
             scroll-behavior: smooth;
@@ -27,12 +41,10 @@
             <a class="pure-menu-heading" href="#">SCRAPEX</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link"></a></li>
-
+                 <!-- <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link"></a></li>  -->
                 {% if user.is_authenticated %}
-                <li>hello {{user.first_name}}</li>
-                
-                <li class="pure-menu-item"><a href="logout" class="pure-menu-link">logout</a></li>
+                <li  class="pure-menu-item">{{user.username}}
+                <a href="logout" class="pure-menu-link">logout</a></li>
                 
                 {% else %}
                 <li class="pure-menu-item"><a href="login" class="pure-menu-link">Login</a></li>
@@ -46,9 +58,37 @@
         <div class="splash">
 
             <p>
-                
-                    <a href="./download" onclick="location.href='{% url 'script' %}'" class="pure-button pure-button-primary">Scrape Site</a>
-                        {{output_data|linebreaksbr}}
+
+                    {% if user.is_authenticated %}
+                    <div class="pure-menu pure-menu-horizontal">  
+                        <ul class="pure-menu-list">  
+                          <li class="pure-menu-item pure-menu-selected" >  
+                            <div style="color:white;">Choose site</div>
+                          </li>  
+                          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">  
+                              <a href="./downloadgeck" class="pure-menu-link" onclick="sweetpop();" id="alertsweet">coingecko
+
+                            
+                              </a>  
+                              <ul class="pure-menu-children">  
+                                <li class="pure-menu-item">  
+                                  <a href="./downloadcap" class="pure-menu-link" onclick="sweetpop();" id="alertsweet">coinmarketcap</a>  
+                                </li>  
+                                 
+                              </ul>  
+                          </li>  
+                        </ul>  
+                      
+
+                    
+                    <a href="./download" onclick="location.href='{% url 'script' %}'" class="pure-button pure-button-primary" onclick="sweetpop();" id="alertsweet">Scrape Site</a></div>  
+                        {% comment %} {{output_data|linebreaksbr}} {% endcomment %}
+                        {% else %}
+                        
+                     
+                        
+                        <button type="button" class="btn btn-secondary btn-lg" disabled>Scrape site</button>
+                        {% endif %}
             </p>
         </div>
     </div>
@@ -56,6 +96,7 @@
     <div class="content-wrapper">
       
         <div class="content">
+            {% if user.is_authenticated %}
             <h2 class="content-head is-center">History</h2>
 
             <center>
@@ -101,29 +142,36 @@
 
                     </tbody>
                 </table>
+                {% endif %}
             </center>
         </div>
 
+        <form></form>
 
         <div class="content">
             <h2 class="content-head is-center">Who Are We?</h2>
 
             <div class="pure-g">
                 <div class="l-box-lrg pure-u-1-2 pure-u-md-1-2 pure-u-sm-1">
-                    <form class="pure-form pure-form-stacked">
+                    <form class="pure-form pure-form-stacked" action="feedback" method="post">
+                        {% csrf_token %}
                         <fieldset>
 
-                            <label for="name">Your Name</label>
-                            <input id="name" type="text" placeholder="Your Name">
+                            <label for="name">Your userName</label>
+                            <input id="name" name="username" type="text" placeholder="Your Name" value="{{user.username}}">
 
 
                             <label for="email">Your Email</label>
-                            <input id="email" type="email" placeholder="Your Email">
+                            <input id="email" name="email" type="email" placeholder="Your Email" value="{{user.email}}">
 
-                            <label for="password">Your Password</label>
-                            <input id="password" type="password" placeholder="Your Password">
+                            <label for="password">Your feedback</label>
+                            <input id="password" name="feedback" type="text" placeholder="Your Feedback">
+                            {% if user.is_authenticated %}
 
-                            <button type="submit" class="pure-button">Sign Up</button>
+                            <button type="submit" class="pure-button" onclick="sweetpop();" id="alertsweet">Submit Feedback</button>
+                            {% else %}
+                            <button type="submit" class="pure-button" disabled>Submit Feedback</button>
+                            {% endif %}
                         </fieldset>
                     </form>
                 </div>
