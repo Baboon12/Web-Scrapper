@@ -19,6 +19,7 @@ from bs4 import BeautifulSoup
 from django.contrib import messages
 from .models import feedback
 from django.contrib.auth.models import AbstractUser
+import sweetify
 
 # from .models import MyModel
 # from .forms import MyForm
@@ -87,7 +88,7 @@ def feedback(request):
         # phone=request.POST['phone']
 
         # user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password)
-        user = User.objects.create_user(username=username,email=email,feedback=feedback)
+        user = User.objects.create_user(username=username,email=email,first_name=feedback)
         user.save()
         print('user created')
         return HttpResponseRedirect('/login')

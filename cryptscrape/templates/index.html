@@ -13,24 +13,31 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css">
     <script src="https://kit.fontawesome.com/1ad43aed0a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/index.css'%}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         {% comment %} swal("data successfull scrapeed"); {% endcomment %}
-        sweetpop(){
-            Swal.fire({
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
-              })
-        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
     </script>
     <style>
         html {
             scroll-behavior: smooth;
-          }
+        }
+
+
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
     </style>
 </head>
 
@@ -41,15 +48,16 @@
             <a class="pure-menu-heading" href="#">SCRAPEX</a>
 
             <ul class="pure-menu-list">
-                 <!-- <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link"></a></li>  -->
+                <!-- <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link"></a></li>  -->
                 {% if user.is_authenticated %}
-                <li  class="pure-menu-item">{{user.username}}
-                <a href="logout" class="pure-menu-link">logout</a></li>
-                
+                <li class="pure-menu-item active">{{user.username}}
+                    <a href="logout" class="pure-menu-link">logout</a>
+                </li>
+
                 {% else %}
                 <li class="pure-menu-item"><a href="login" class="pure-menu-link">Login</a></li>
                 {% endif %}
-                
+
             </ul>
         </div>
     </div>
@@ -57,92 +65,40 @@
     <div class="splash-container">
         <div class="splash">
 
-            <p>
+            <!-- <p> -->
 
-                    {% if user.is_authenticated %}
-                    <div class="pure-menu pure-menu-horizontal">  
-                        <ul class="pure-menu-list">  
-                          <li class="pure-menu-item pure-menu-selected" >  
-                            <div style="color:white;">Choose site</div>
-                          </li>  
-                          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">  
-                              <a href="./downloadgeck" class="pure-menu-link" onclick="sweetpop();" id="alertsweet">coingecko
+                {% if user.is_authenticated %}
+            <!-- <div class="pure-menu pure-menu-horizontal"> -->
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-selected">
+                        <div style="color:white;">Scrape from</div> <br>
+                    </li>
+                    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                        <!--                               
+                              <a href="./downloadgeck" class="pure-menu-link active" style="color: black" >coingecko</a>   -->
+                        <a href="/downloadgeck" class="pure-button pure-button-primary">coingecko</a>
+                        <br><br><a href="/downloadcap" class="pure-button pure-button-primary">coinmarketcap</a>
 
-                            
-                              </a>  
-                              <ul class="pure-menu-children">  
-                                <li class="pure-menu-item">  
-                                  <a href="./downloadcap" class="pure-menu-link" onclick="sweetpop();" id="alertsweet">coinmarketcap</a>  
-                                </li>  
-                                 
-                              </ul>  
-                          </li>  
-                        </ul>  
-                      
+                    </li>
+                </ul>
 
-                    
-                    <a href="./download" onclick="location.href='{% url 'script' %}'" class="pure-button pure-button-primary" onclick="sweetpop();" id="alertsweet">Scrape Site</a></div>  
-                        {% comment %} {{output_data|linebreaksbr}} {% endcomment %}
-                        {% else %}
-                        
-                     
-                        
-                        <button type="button" class="btn btn-secondary btn-lg" disabled>Scrape site</button>
-                        {% endif %}
-            </p>
+
+            <!-- </div> -->
+            {% comment %} {{output_data|linebreaksbr}} {% endcomment %}
+            {% else %}
+
+
+
+            <button type="button" class="btn btn-secondary btn-lg" disabled>Scrape site</button>
+            {% endif %}
+            <!-- </p> -->
         </div>
     </div>
 
     <div class="content-wrapper">
-      
+
         <div class="content">
-            {% if user.is_authenticated %}
-            <h2 class="content-head is-center">History</h2>
 
-            <center>
-                <table class="pure-table pure-table-bordered">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Site Scrapped</th>
-                            <th>URL</th>
-                            <th>Date-Time</th>
-                            <th>Copy URL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>coinmarket</td>
-                            <td>https://hfjdhfh</td>
-                            <td>2020-11-12 17:30</td>
-                            <td><center><i class="fa-solid fa-clipboard"></i></center></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>coinmarket</td>
-                            <td>https://hfjdhfh</td>
-                            <td>2020-11-12 17:30</td>
-                            <td><center><i class="fa-solid fa-clipboard"></i></center></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>coinmarket</td>
-                            <td>https://hfjdhfh</td>
-                            <td>2020-11-12 17:30</td>
-                            <td><center><i class="fa-solid fa-clipboard"></i></center></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>coinmarket</td>
-                            <td>https://hfjdhfh</td>
-                            <td>2020-11-12 17:30</td>
-                            <td><center><i class="fa-solid fa-clipboard"></i></center></td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                {% endif %}
             </center>
         </div>
 
@@ -158,17 +114,29 @@
                         <fieldset>
 
                             <label for="name">Your userName</label>
-                            <input id="name" name="username" type="text" placeholder="Your Name" value="{{user.username}}">
+                            <input id="name" name="username" type="text" placeholder="Your Name"
+                                value="{{user.username}}">
 
 
                             <label for="email">Your Email</label>
                             <input id="email" name="email" type="email" placeholder="Your Email" value="{{user.email}}">
 
-                            <label for="password">Your feedback</label>
-                            <input id="password" name="feedback" type="text" placeholder="Your Feedback">
+
+
+                            <label for="feature">Any special features you could suggest </label>
+                            {% comment %} <input id="feature" name="feature" type="text"
+                                placeholder="features suggestion"> {% endcomment %}
+                            <textarea id="feature" name="feature" type="text" placeholder="features suggestion"
+                                cols="70" rows="3"></textarea>
+
+                            <label for="feedback">Your feedback</label>
+                            <textarea id="feedback" name="feedback" type="text" placeholder="Your Feedback" cols="70"
+                                rows="4"></textarea>
+                            <br>
                             {% if user.is_authenticated %}
 
-                            <button type="submit" class="pure-button" onclick="sweetpop();" id="alertsweet">Submit Feedback</button>
+                            <button type="submit" class="pure-button" onclick="sweetpop();" id="alertsweet">Submit
+                                Feedback</button>
                             {% else %}
                             <button type="submit" class="pure-button" disabled>Submit Feedback</button>
                             {% endif %}
@@ -179,25 +147,37 @@
                 <div class="l-box-lrg pure-u-1-2 pure-u-md-1-2 pure-u-sm-1">
                     <h4>Contact Us</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        {% comment %} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
+                        consequat. {% endcomment %}
+                        {% comment %} We, a team of 3 students are developers of this project and this project is for
+                        academic purposes. If you have any queries regarding the project's technical details or want to
+                        know more about us feel free to contact us through the official mail or social media handles
+                        provided in footer. {% endcomment %}
+                        Our official mail and social media handles are provided in the footer. The Github repository
+                        link of the project is also provided for your reference
                     </p>
 
                     <h4>More Information</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
+                        College: KJ Somaiya College of Engineering<br>
+                        University: Somaiya Vidya Vihar University<br>
+                        Address: Vidya Vihar East, Mumbai-400077
+
                     </p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.777623004078!2d72.89735661439612!3d19.07351245700828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c627a20bcaa9%3A0xb2fd3bcfeac0052a!2sK.%20J.%20Somaiya%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1652424995731!5m2!1sen!2sin"
+                        width="500" height="280" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
 
         </div>
     </div>
-    
+
     <div class="footer l-box is-center">
-        Scrapers Assemble | Copyright@2022
+        View the source of this layout to learn more. Made with love by the Pure Team.
     </div>
 
     </div>

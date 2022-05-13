@@ -13,6 +13,13 @@ body {
     color: #7f8c8d;
     font-size: 13px;
 }
+.footer {
+    background: #111;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 
 h1,
 h2,
